@@ -37,9 +37,9 @@ begin
    --  TEST 1: Standard Hamming Encode(7,4) Validation
    Put_Line ("TEST 1 - Standard Hamming Encode(7,4)");
    declare
-      Data     : constant Bit_Array := (1, 0, 1, 1);
+      Data     : constant Bit_Array := [1, 0, 1, 1];
       Code     : constant Bit_Array := Encode (Data);
-      Expected : constant Bit_Array := (0, 1, 1, 0, 0, 1, 1);
+      Expected : constant Bit_Array := [0, 1, 1, 0, 0, 1, 1];
    begin
       Check ("1.1 Encode produces correct length (7 bits)", Code'Length = 7);
       Check ("1.2 Encode produces exact expected bit sequence", Eq (Code, Expected));
@@ -49,8 +49,8 @@ begin
    --  TEST 2: Standard Hamming Decode(7,4) Clean State
    Put_Line ("TEST 2 - Standard Hamming Decode(7,4) No Error");
    declare
-      Code          : constant Bit_Array := (0, 1, 1, 0, 0, 1, 1);
-      Expected_Data : constant Bit_Array := (1, 0, 1, 1);
+      Code          : constant Bit_Array := [0, 1, 1, 0, 0, 1, 1];
+      Expected_Data : constant Bit_Array := [1, 0, 1, 1];
       Data          : Bit_Array (1 .. 4);
       Status        : Error_Status;
    begin
@@ -64,8 +64,8 @@ begin
    Put_Line ("TEST 3 - Standard Hamming Decode(7,4) Single Data Error");
    declare
       --  Original: 0, 1, 1, 0, 0, 1, 1 -> Fliping bit 6 (Data 3)
-      Code          : constant Bit_Array := (0, 1, 1, 0, 0, 0, 1);
-      Expected_Data : constant Bit_Array := (1, 0, 1, 1);
+      Code          : constant Bit_Array := [0, 1, 1, 0, 0, 0, 1];
+      Expected_Data : constant Bit_Array := [1, 0, 1, 1];
       Data          : Bit_Array (1 .. 4);
       Status        : Error_Status;
    begin
@@ -79,8 +79,8 @@ begin
    Put_Line ("TEST 4 - Standard Hamming Decode(7,4) Single Parity Error");
    declare
       --  Original: 0, 1, 1, 0, 0, 1, 1 -> Fliping bit 2 (Parity 2)
-      Code          : constant Bit_Array := (0, 0, 1, 0, 0, 1, 1);
-      Expected_Data : constant Bit_Array := (1, 0, 1, 1);
+      Code          : constant Bit_Array := [0, 0, 1, 0, 0, 1, 1];
+      Expected_Data : constant Bit_Array := [1, 0, 1, 1];
       Data          : Bit_Array (1 .. 4);
       Status        : Error_Status;
    begin
@@ -93,7 +93,7 @@ begin
    --  TEST 5: Standard Hamming Encode(15,11) Generalized Extension
    Put_Line ("TEST 5 - Standard Hamming Encode(15,11)");
    declare
-      Data : constant Bit_Array := (1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1);
+      Data : constant Bit_Array := [1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1];
       Code : constant Bit_Array := Encode (Data);
    begin
       Check ("5.1 Encode dynamically provisions 15 bits", Code'Length = 15);
@@ -104,10 +104,10 @@ begin
    --  TEST 6: Extended Hamming Encode(8,4) SECDED
    Put_Line ("TEST 6 - Extended Hamming Encode(8,4)");
    declare
-      Data     : constant Bit_Array := (1, 0, 1, 1);
+      Data     : constant Bit_Array := [1, 0, 1, 1];
       Code     : constant Bit_Array := Encode_Extended (Data);
       --  Standard code is 0110011 (sum is 4 -> parity 0). Extends to 01100110.
-      Expected : constant Bit_Array := (0, 1, 1, 0, 0, 1, 1, 0);
+      Expected : constant Bit_Array := [0, 1, 1, 0, 0, 1, 1, 0];
    begin
       Check ("6.1 Extended encode allocates +1 bit length (8)", Code'Length = 8);
       Check ("6.2 Appends parity accurately matching expected", Eq (Code, Expected));
@@ -117,8 +117,8 @@ begin
    --  TEST 7: Extended Hamming Decode(8,4) SECDED Clean State
    Put_Line ("TEST 7 - Extended Hamming Decode(8,4) No Error");
    declare
-      Code          : constant Bit_Array := (0, 1, 1, 0, 0, 1, 1, 0);
-      Expected_Data : constant Bit_Array := (1, 0, 1, 1);
+      Code          : constant Bit_Array := [0, 1, 1, 0, 0, 1, 1, 0];
+      Expected_Data : constant Bit_Array := [1, 0, 1, 1];
       Data          : Bit_Array (1 .. 4);
       Status        : Error_Status;
    begin
@@ -132,8 +132,8 @@ begin
    Put_Line ("TEST 8 - Extended Hamming Decode(8,4) Single Data Error");
    declare
       --  Original: 01100110 -> Fliping bit 3 (Data 1)
-      Code          : constant Bit_Array := (0, 1, 0, 0, 0, 1, 1, 0);
-      Expected_Data : constant Bit_Array := (1, 0, 1, 1);
+      Code          : constant Bit_Array := [0, 1, 0, 0, 0, 1, 1, 0];
+      Expected_Data : constant Bit_Array := [1, 0, 1, 1];
       Data          : Bit_Array (1 .. 4);
       Status        : Error_Status;
    begin
@@ -147,8 +147,8 @@ begin
    Put_Line ("TEST 9 - Extended Hamming Decode(8,4) Single Overall Parity Error");
    declare
       --  Original: 01100110 -> Fliping bit 8 (Overall Parity itself)
-      Code          : constant Bit_Array := (0, 1, 1, 0, 0, 1, 1, 1);
-      Expected_Data : constant Bit_Array := (1, 0, 1, 1);
+      Code          : constant Bit_Array := [0, 1, 1, 0, 0, 1, 1, 1];
+      Expected_Data : constant Bit_Array := [1, 0, 1, 1];
       Data          : Bit_Array (1 .. 4);
       Status        : Error_Status;
    begin
@@ -162,8 +162,9 @@ begin
    Put_Line ("TEST 10 - Extended Hamming Decode(8,4) Double Error Detection");
    declare
       --  Original: 01100110 -> Flipping bits 3 and 6
-      Code   : constant Bit_Array := (0, 1, 0, 0, 0, 0, 1, 0);
+      Code   : constant Bit_Array := [0, 1, 0, 0, 0, 0, 1, 0];
       Data   : Bit_Array (1 .. 4);
+      pragma Unreferenced (Data);
       Status : Error_Status;
    begin
       Decode_Extended (Code, 4, Data, Status);
@@ -175,10 +176,10 @@ begin
    --  TEST 11: Edge Case - Single Bit Data
    Put_Line ("TEST 11 - Edge Case (Data length 1)");
    declare
-      Data     : constant Bit_Array (1 .. 1) := (1 => 1);
+      Data     : constant Bit_Array (1 .. 1) := [1 => 1];
       Code     : constant Bit_Array := Encode (Data);
       --  M=2, N=3. Encodes as triple repetition. P1=1, P2=1, D1=1.
-      Expected : constant Bit_Array := (1, 1, 1);
+      Expected : constant Bit_Array := [1, 1, 1];
    begin
       Check ("11.1 Bound scales perfectly down to M=2 for N=3", Code'Length = 3);
       Check ("11.2 Result acts precisely as a triple repetition code", Eq (Code, Expected));
@@ -190,9 +191,10 @@ begin
    declare
       --  A 5-bit code where N=5 (Data_Length = 2). Create syndrome = 6 (out of bounds).
       --  We can force this manually.
-      Code_Err         : constant Bit_Array (1 .. 5) := (0, 1, 0, 1, 0);
+      Code_Err         : constant Bit_Array (1 .. 5) := [0, 1, 0, 1, 0];
       Status           : Error_Status;
       Data             : Bit_Array (1 .. 2);
+      pragma Unreferenced (Data);
       Exception_Raised : Boolean := False;
    begin
       Decode (Code_Err, 2, Data, Status);
@@ -215,7 +217,7 @@ begin
    Put_Line ("TEST 13 - Exception Handling (Extended SECDED Double Error)");
    declare
       --  Utilizing the double error block from Test 10
-      Code             : constant Bit_Array := (0, 1, 0, 0, 0, 0, 1, 0);
+      Code             : constant Bit_Array := [0, 1, 0, 0, 0, 0, 1, 0];
       Exception_Raised : Boolean := False;
    begin
       Check ("13.1 Invalid block maintains SECDED valid length (8)", Code'Length = 8);
@@ -236,5 +238,7 @@ begin
    Put_Line ("");
    Put_Line ("=== " & Natural'Image (Pass_Count) & " passed, "
              & Natural'Image (Fail_Count) & " failed ===");
+   pragma Warnings (Off);
    pragma Assert (Fail_Count = 0, "Some tests failed during validation.");
+   pragma Warnings (On);
 end Tests;
