@@ -83,6 +83,7 @@ package body Hamming_Code is
       Data        : out Bit_Array;
       Status      : out Error_Status)
    is
+      pragma Unreferenced (Data_Length);
       N        : constant Positive := Code'Length;
       Syndrome : Interfaces.Unsigned_32 := 0;
       Working  : Bit_Array (1 .. N);
@@ -122,7 +123,7 @@ package body Hamming_Code is
    end Decode;
 
    function Decode (Code : Bit_Array; Data_Length : Positive) return Bit_Array is
-      Status : Error_Status := No_Error;
+      Status : Error_Status;
       Data   : Bit_Array (1 .. Data_Length);
    begin
       Decode (Code, Data_Length, Data, Status);
@@ -163,7 +164,7 @@ package body Hamming_Code is
       Standard_Code   : constant Bit_Array (1 .. N) := Code (Code'First .. Code'Last - 1);
       Received_Parity : constant Bit := Code (Code'Last);
       Overall_Parity  : Bit := 0;
-      Standard_Status : Error_Status := No_Error;
+      Standard_Status : Error_Status;
    begin
       --  Calculate overall parity of the received standard segment
       for I in Standard_Code'Range loop
@@ -202,7 +203,7 @@ package body Hamming_Code is
    end Decode_Extended;
 
    function Decode_Extended (Code : Bit_Array; Data_Length : Positive) return Bit_Array is
-      Status : Error_Status := No_Error;
+      Status : Error_Status;
       Data   : Bit_Array (1 .. Data_Length);
    begin
       Decode_Extended (Code, Data_Length, Data, Status);
