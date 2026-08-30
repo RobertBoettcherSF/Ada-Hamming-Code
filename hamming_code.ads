@@ -1,5 +1,3 @@
-with Interfaces;
-
 package Hamming_Code is
 
    --  A single bit, forming the foundation of our encoded data
