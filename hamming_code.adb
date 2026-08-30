@@ -1,3 +1,5 @@
+with Interfaces;
+
 package body Hamming_Code is
 
    -----------------------------------------------------------------------------
@@ -44,7 +46,7 @@ package body Hamming_Code is
 
    function Encode (Data : Bit_Array) return Bit_Array is
       N      : constant Positive := Encoded_Length (Data'Length);
-      Result : Bit_Array (1 .. N) := (others => 0);
+      Result : Bit_Array (1 .. N) := [others => 0];
       D_Idx  : Positive := Data'First;
       use Interfaces;
    begin
